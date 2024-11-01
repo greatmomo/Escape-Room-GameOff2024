@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://c0ovo2xa6k2sh"]
+
+[ext_resource type="PackedScene" uid="uid://fja1fxyx3dcq" path="res://scenes/wall_tile.tscn" id="3_4bwxg"]
+[ext_resource type="PackedScene" uid="uid://1xp5r2bnkc6j" path="res://scenes/floor_tile.tscn" id="4_76iwm"]
+[ext_resource type="PackedScene" uid="uid://boyb6k77uc20g" path="res://scenes/flickering_light.tscn" id="4_471il"]
+[ext_resource type="PackedScene" uid="uid://csf2m3rjttt1d" path="res://scenes/player.tscn" id="5_p7ahl"]
+[ext_resource type="PackedScene" uid="uid://botnpw6kvgq0g" path="res://scenes/painted_wooden_chair.tscn" id="5_rn7nr"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2vw3s"]
+sky_top_color = Color(0.313726, 0.0588235, 0.0705882, 1)
+sky_horizon_color = Color(0.0862745, 0.0862745, 0.0901961, 1)
+sky_curve = 0.15529
+ground_bottom_color = Color(0.117647, 0.054902, 0.00784314, 1)
+ground_horizon_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Sky" id="Sky_knbeo"]
+sky_material = SubResource("ProceduralSkyMaterial_2vw3s")
+
+[sub_resource type="Environment" id="Environment_q5bf4"]
+background_mode = 2
+sky = SubResource("Sky_knbeo")
+ambient_light_source = 3
+ambient_light_color = Color(0.980392, 0.278431, 0.960784, 1)
+ambient_light_sky_contribution = 0.8
+ambient_light_energy = 0.2
+tonemap_mode = 3
+ssao_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.145098, 0.0509804, 0.0627451, 1)
+fog_density = 0.083
+
+[sub_resource type="VoxelGIData" id="VoxelGIData_g5ird"]
+
+[node name="world" type="Node3D"]
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_q5bf4")
+
+[node name="FlickeringLight" parent="." instance=ExtResource("4_471il")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.580091, 3.02246, -0.506461)
+light_energy = 5.0
+omni_range = 4.195
+omni_attenuation = 2.63901
+
+[node name="FloorTiles" type="Node" parent="."]
+
+[node name="FloorTile" parent="FloorTiles" instance=ExtResource("4_76iwm")]
+
+[node name="WallTiles" type="Node" parent="."]
+
+[node name="WallTile" parent="WallTiles" instance=ExtResource("3_4bwxg")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -3, 1.5, 0)
+
+[node name="WallTile2" parent="WallTiles" instance=ExtResource("3_4bwxg")]
+transform = Transform3D(1.91069e-15, -4.37114e-08, -1, -1, -4.37114e-08, 0, -4.37114e-08, 1, -4.37114e-08, 0, 1.5, -3)
+
+[node name="Player" parent="." instance=ExtResource("5_p7ahl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.221784, 0.201046, 1.62441)
+
+[node name="painted_wooden_chair" parent="." instance=ExtResource("5_rn7nr")]
+
+[node name="VoxelGI" type="VoxelGI" parent="."]
+data = SubResource("VoxelGIData_g5ird")

@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://boyb6k77uc20g"]
+
+[node name="FlickeringLight" type="OmniLight3D"]
+light_color = Color(0.968627, 1, 0.835294, 1)
+light_energy = 0.5
+shadow_enabled = true
+shadow_reverse_cull_face = true
+omni_range = 3.25
+omni_attenuation = 3.03143
